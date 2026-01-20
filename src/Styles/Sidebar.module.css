@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+.navsectiontitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* margin: 24px 0 12px 12px; */
+  width: 100%;
+  padding-left: 120px;
+  margin-top: 10px;
+}
+.sidebar {
+  /* background-color: #0371EA; */
+  background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(40px) saturate(180%);
+            border-right: 1px solid rgba(16, 109, 185, 0.1);
+  width: 100%;
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 15px 0px 0px 15px;
+}
+.Branding {
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #0371EA;
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0371EA;
+  }
+}
+.sidbuttons {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* gap: 10px; */
+}
+
+.buts {
+  position: relative;
+  /* background-color: #0371EA; */
+  width: 50%;
+  height: 55px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0px 60px 0px 25px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 8px 0px;
+}
+
+.buts::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: #0371EA;
+
+  transition: width 0.3s ease;
+}
+
+.buts h2 {
+  /* color: white; */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+  span {
+    font-size: 18px;
+    /* color: rgba(255, 255, 255, 0.7); */
+  }
+}
+
+.buts:hover::before {
+  width: 5px; background-color: #0371EA;
+}
+.buts:hover{
+  background: rgba(16, 145, 196, 0.08);
+}
+.buts:hover h2 {
+  transform: scale(1.1);
+}
+
+.active {
+  border-left: 5px solid #0371EA;
+  background: linear-gradient(135deg, rgba(16, 95, 185, 0.15), rgba(5, 61, 150, 0.1));
+    /* color: #10b981; */
+    box-shadow: 0 0 20px rgba(16, 22, 185, 0.1);
+    
+}
+
+.active h2 {
+  transform: scale(1.1); color: #0371EA;
+}
+.logo{
+  width: 85px;
+    height: 55px;
+}
+@media (max-width: 1330px) {
+  .buts {
+    position: relative;
+    /* background-color: #0371EA; */
+    /* width: 25%; */
+    height: 60px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* padding: 5px 30px; */
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .Branding {
+    h1 {
+      font-size: 20px;
+      font-weight: bold;
+      /* color: #0371EA; */
+    }
+  }
+}
+@media (max-width: 1000px) {
+  .sidbuttons {
+    span {
+      display: none;
+    }
+  }
+  .buts {
+    justify-content: center;
+    padding: 5px 20px;
+    width: 25%;
+  }
+  .navsectiontitle{
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* margin: 24px 0 12px 12px; */
+    width: 100%;
+    padding-top: 20px;
+    text-align: center;
+    padding-left: 0px;
+}
+}
+
+@media (max-width: 330px) {
+  .buts {
+    justify-content: center;
+    padding: 5px 15px;
+    width: 25%;
+  }
+}

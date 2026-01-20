@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800");
+
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.coreting{
+ display: flex;
+    gap: 10px;
+    /* background: rgba(3, 113, 234, 0.9); */
+    justify-content: start;
+    align-items: center;
+    padding-left: 10px;
+    height: 15px;
+    width: 100%;
+    padding: 2px;
+    /* border-radius: 1px; */
+    color: white;
+    font-size: 13px;
+}
+.modal {
+  background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 32px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 75vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+.title {
+  color: #3b82f6;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.3px;
+}
+
+.filters {
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.input{
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+ padding: 12px 0px 12px 5px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+.select {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.input:focus,
+.select:focus {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.select {
+  cursor: pointer;
+}
+
+.select option {
+  background: #0f172a;
+  color: #fff;
+}
+
+.employeeList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-bottom: 24px;
+}
+
+.employeeList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.employeeList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.employeeList::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.5);
+  border-radius: 10px;
+}
+
+.employeeList::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
+
+.emptyText {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 40px 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.empRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.empRow:hover {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.empAvatar {
+  width: 45px;
+  height: 45px;
+  background-color: #0371ea;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(3, 113, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.empInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.empName {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.empRole,
+.empDept {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin: 2px 0;
+  font-weight: 500;
+}
+
+.addBtn {
+  padding: 8px 20px;
+  background: rgba(3, 113, 234, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(3, 113, 234, 0.5);
+  color: white;
+  border-radius: 10px;
+  font-weight: 700;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(3, 113, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.addBtn span {
+  position: relative;
+  z-index: 1;
+}
+
+.addBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.3));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.addBtn:hover:not(.disabled) {
+  background: rgba(59, 130, 246, 1);
+  box-shadow: 
+    0 0 20px rgba(3, 113, 234, 0.5),
+    0 6px 16px rgba(3, 113, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.addBtn:hover:not(.disabled)::before {
+  opacity: 1;
+}
+
+.addBtn.disabled {
+  background: rgba(100, 116, 139, 0.3);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.closeBtn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.closeBtn:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    padding: 24px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .employeeList {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 20px;
+    max-height: 95vh;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .empRow {
+    flex-wrap: wrap;
+  }
+
+  .addBtn {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

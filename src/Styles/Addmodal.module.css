@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-family: "Montserrat", sans-serif;
+}
+
+
+.modal {
+ width: 50%;
+    background: #0B142D;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: _modalFade_1y5ss_1 0.25s ease-out;
+    overflow: hidden;
+    /* height: 40vh; */
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #0371EA;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0371EA;
+}
+
+.header button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.header button:hover {
+  color: #000;
+}
+
+
+.body {
+  padding: 20px;
+    font-size: 14px;
+    color: #555;
+   /* width: 94%; */
+    /* background: yellow; */
+    /* height: 23vh; */
+}
+
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #0371EA;
+}
+
+
+.primary {
+  background: #0371EA;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primary:hover {
+  background: #ffffff;
+  color: #0371EA;
+}
+
+.secondary {
+  background: #f3f4f6;
+  color: #333;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Animation */
+/* @keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+} */
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* gap: 16px 20px; */
+  gap: 15px 60px;
+  /* background-color: #0371EA; */
+    /* background-color: #D3DDEB; */
+    /* display: flex; */
+    /* align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+    padding: 15px 25px 0px 0px;
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #9ca3af;
+  text-align: start;
+}
+
+.field input,
+.field select {
+  background: #0f1a3a;
+  border: 1px solid #1f2a55;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.field input::placeholder {
+  color: #6b7280;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: #0371EA;
+  box-shadow: 0 0 0 1px #0371EA;
+}
+
+/* Make date input look clean */
+.field input[type="date"] {
+  color-scheme: dark;
+}

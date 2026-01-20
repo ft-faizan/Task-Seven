@@ -1,0 +1,56 @@
+.parent {
+  /* background-color: blueviolet; */
+  height: 98vh;
+  width: 100%;
+  display: flex;
+  border-radius: 15px;
+  background-color: #0a0f1a;
+  /* overflow: hidden; */
+}
+.aside {
+  /* background-color: red; */
+  width: 15%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 20% 50%,
+      rgba(16, 100, 185, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(7, 5, 150, 0.15) 0%,
+      transparent 50%
+    );
+}
+.content {
+  /* background-color: rgb(246, 255, 0); */
+  /* width: 100%; */
+  width: 85%;
+  /* height: 100%; */
+  /* height: auto; */
+  min-height: 98vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+ border-radius: 0px 15px 15px 0px;
+}
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .aside {
+    /* background-color: red; */
+    /* width: 20%; */
+    height: 100%;
+  }
+  .content {
+    /* background-color: rgb(246, 255, 0); */
+    /* width: 100%; */
+    width: 100%;
+    /* height: 100%; */
+    /* overflow:scroll; */
+  }
+}
