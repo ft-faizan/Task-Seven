@@ -26,7 +26,7 @@ export default function LoginSignup() {
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
-                 <img src="/public/finallogo.png" alt="error" className="logo" />
+                 <img src="/finallogo.png" alt="error" className="logo" />
                 <h1>Already have an account</h1>
                 <p>
                   If you already have an account, just sign in.
@@ -40,7 +40,7 @@ export default function LoginSignup() {
                 </button>
               </div>
               <div className="overlay-panel overlay-right">
-                <img src="/public/finallogo.png" alt="error" className="logo" />
+                <img src="/finallogo.png" alt="error" className="logo" />
                 <h1> Don't have an account!</h1>
                 <p>Create an Account & Sign-In </p>
                 <button

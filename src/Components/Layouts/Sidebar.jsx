@@ -39,7 +39,7 @@ function Sidebar() {
 
       
       <div className={styles.Branding}>
-        <img className={styles.logo} src="/public/finallogo.png" alt="logo" />
+        <img className={styles.logo} src="/finallogo.png" alt="logo" />
         
         {isOpen && <h1>Prime Bord</h1>}
        
