@@ -60,7 +60,7 @@ const FilterContainer = styled.div`
   grid-template-columns: 2fr 1fr auto;
   gap: 14px;
   padding: 10px;
-  background: rgba(15, 23, 42, 0.4);
+  // background: rgba(15, 23, 42, 0.4);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 16px;
@@ -69,7 +69,7 @@ const FilterContainer = styled.div`
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
     align-items: center;
-
+ background:rgb(15 23 42 / 15%);
   /* Tablet - screens below 1024px */
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -94,7 +94,8 @@ const InputWrapper = styled.div`
 const SearchIcon = styled.div`
   position: absolute;
   left: 14px;
-  color: rgba(255, 255, 255, 0.4);
+  // color: rgba(255, 255, 255, 0.4);
+  color:black;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -105,20 +106,23 @@ const Input = styled.input`
   padding: 12px 16px 12px 44px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(15, 23, 42, 0.5);
+  // background: rgba(15, 23, 42, 0.5);
+   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
-  color: #fff;
+  color: #000000ff;
   font-size: 14px;
   transition: all 0.3s ease;
   
   &::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    // color: rgba(255, 255, 255, 0.3);
+     color:#5D616B;
   }
   
   &:focus {
     outline: none;
     border-color: rgba(99, 102, 241, 0.5);
-    background: rgba(15, 23, 42, 0.7);
+    // background: rgba(15, 23, 42, 0.7);
+    background: rgba(255, 255, 255, 0.7);
     box-shadow: 
       0 0 0 3px rgba(99, 102, 241, 0.1),
       0 4px 12px rgba(99, 102, 241, 0.15);
@@ -138,9 +142,11 @@ const Select = styled.select`
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(15, 23, 42, 0.5);
+  // background: rgba(15, 23, 42, 0.5);
+  background:rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
-  color: #fff;
+  // color: #fff;
+   color:#5D616B;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -151,15 +157,23 @@ const Select = styled.select`
   padding-right: 40px;
 
   option {
-    background: #0f172a;
-    color: #fff;
+    // background: #0f172a;
+      background:white;
+    color: black;
     padding: 8px;
   }
   
   &:focus {
+    // outline: none;
+    // border-color: rgba(99, 102, 241, 0.5);
+    // background-color: rgba(15, 23, 42, 0.7);
+    // box-shadow: 
+    //   0 0 0 3px rgba(99, 102, 241, 0.1),
+    //   0 4px 12px rgba(99, 102, 241, 0.15);
     outline: none;
-    border-color: rgba(99, 102, 241, 0.5);
-    background-color: rgba(15, 23, 42, 0.7);
+    border-color: rgba(0, 0, 0, 0.5);
+    background-color: #0371EA;
+    color: #fff;
     box-shadow: 
       0 0 0 3px rgba(99, 102, 241, 0.1),
       0 4px 12px rgba(99, 102, 241, 0.15);

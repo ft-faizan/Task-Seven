@@ -38,7 +38,27 @@ function EmployeeList({ employees, onEdit, onDelete }) {
               <span>Delete</span>
             </DeleteBtn>
           </Actions>
-          <ConfirmAlert
+          {/* <ConfirmAlert
+            isOpen={open}
+            title="Are you sure?"
+            message={`Do you want to delete ${selectedEmp?.name}?`}
+            confirmText="Delete"
+            cancelText="Cancel"
+            onConfirm={() => {
+              if (selectedEmp) {
+                onDelete(selectedEmp);
+              }
+              setOpen(false);
+              setSelectedEmp(null);
+            }}
+            onCancel={() => {
+              setOpen(false);
+              setSelectedEmp(null);
+            }}
+          /> */}
+        </Row>
+      ))}
+        <ConfirmAlert
             isOpen={open}
             title="Are you sure?"
             message={`Do you want to delete ${selectedEmp?.name}?`}
@@ -56,8 +76,6 @@ function EmployeeList({ employees, onEdit, onDelete }) {
               setSelectedEmp(null);
             }}
           />
-        </Row>
-      ))}
     </ListWrapper>
   );
 }
@@ -83,7 +101,7 @@ const ListWrapper = styled.div`
 `;
 
 const Row = styled.div`
-  background: rgba(15, 23, 42, 0.4);
+  // background: rgba(15, 23, 42, 0.4);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 18px 22px;
@@ -169,7 +187,8 @@ const NameBlock = styled.div`
 `;
 
 const Name = styled.span`
-  color: #fff;
+  // color: #fff;
+  color:#5D616B;
   font-weight: 600;
   font-size: 15px;
   letter-spacing: 0.2px;

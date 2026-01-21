@@ -4,7 +4,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-// Load trash from locore bhijann fizannnnn
+//locore bhijann fizannnnn
 const loadTrash = () => {
   const data = localStorage.getItem("trash");
   return data ? JSON.parse(data) : { employees: [], projects: [] };
@@ -16,7 +16,7 @@ const trashSlice = createSlice({
   name: "trash",
   initialState,
   reducers: {
-   
+    //  Employ trash
     addEmployeeToTrash: (state, action) => {
       state.employees.push(action.payload);
       localStorage.setItem("trash", JSON.stringify(state));
@@ -47,7 +47,7 @@ const trashSlice = createSlice({
       localStorage.setItem("trash", JSON.stringify(state));
     },
 
-    
+    // Project trash starts
     addProjectToTrash: (state, action) => {
       state.projects.push(action.payload);
       localStorage.setItem("trash", JSON.stringify(state));

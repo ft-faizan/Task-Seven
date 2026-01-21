@@ -1,5 +1,6 @@
 
 
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCompanyById } from "../Api/Api_Methods.jsx";
@@ -11,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { addEmployeeToTrash } from "../Redux_Tool_Kit/trashSlice";
 import { FaArrowLeft } from "react-icons/fa6";
 import ConfirmAlert from "../Components/Reuseable_Components/ConformAlert.jsx";
-
+ 
 function EmployeesDetails() {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
@@ -25,11 +26,11 @@ function EmployeesDetails() {
       try {
         const companyId = localStorage.getItem("userId");
         const res = await getCompanyById(companyId);
-
+ 
         const foundEmployee = res.data.employees.find(
           (emp) => String(emp.id) === id
         );
-
+ 
         setEmployee(foundEmployee);
       } catch (error) {
         console.error(error);
@@ -37,51 +38,82 @@ function EmployeesDetails() {
         setLoading(false);
       }
     }
-
+ 
     fetchEmployee();
   }, [id]);
-
+ 
   const handleDelete = async () => {
     try {
       //  setOpen(false);
       const companyId = localStorage.getItem("userId");
-
-      
+ 
+     
       dispatch(
         addEmployeeToTrash({
           ...employee,
           deletedAt: Date.now(),
         })
       );
-
-      
+ 
+     
       const res = await getCompanyById(companyId);
-
+ 
       const updatedEmployees = res.data.employees.filter(
         (emp) => emp.id !== employee.id
       );
-
+ 
       await updateCompanyById(companyId, {
         ...res.data,
         employees: updatedEmployees,
       });
-
-      
+ 
+     
       navigate("/Employees");
     } catch (error) {
       console.error("Delete failed", error);
     }
   };
-
+ 
+ 
+ 
+ 
+ 
+  const handleEmployeeUpdate = async (formData) => {
+  try {
+    const companyId = localStorage.getItem("userId");
+    const res = await getCompanyById(companyId);
+ 
+    const updatedEmployees = res.data.employees.map((emp) =>
+      String(emp.id) === id ? { ...emp, ...formData } : emp
+    );
+ 
+    await updateCompanyById(companyId, {
+      ...res.data,
+      employees: updatedEmployees,
+    });
+ 
+    // ✅ update UI
+    const updatedEmployee = updatedEmployees.find(
+      (emp) => String(emp.id) === id
+    );
+ 
+    setEmployee(updatedEmployee);
+    setShowModal(false);
+  } catch (error) {
+    console.error("Update failed", error);
+  }
+};
+ 
+ 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!employee) return <div className={styles.notFound}>Employee not found</div>;
-
-  
+ 
+ 
   const avatarLetter = employee.name?.charAt(0).toUpperCase() || "?";
-
+ 
   return (
     <>
-    
+   
       <div className={styles.empDetails}>
           <div className={styles.Addemp}>
                     <button
@@ -106,16 +138,16 @@ function EmployeesDetails() {
                 </span>
               </div>
             </div>
-
+ 
             <div className={styles.actions}>
-              <button 
-                className={styles.editBtn} 
+              <button
+                className={styles.editBtn}
                 onClick={() => setShowModal(true)}
               >
                 <span>Edit</span>
               </button>
-              <button 
-                className={styles.deleteBtn} 
+              <button
+                className={styles.deleteBtn}
                 // onClick={handleDelete}
                 onClick={() => setOpen(true)}
               >
@@ -123,34 +155,34 @@ function EmployeesDetails() {
               </button>
             </div>
           </div>
-
+ 
          
           <div className={styles.detailsGrid}>
             <div className={styles.detailItem}>
               <span className={styles.label}>Email</span>
               <span className={styles.value}>{employee.email}</span>
             </div>
-
+ 
             <div className={styles.detailItem}>
               <span className={styles.label}>Role</span>
               <span className={styles.value}>{employee.role}</span>
             </div>
-
+ 
             <div className={styles.detailItem}>
               <span className={styles.label}>Department</span>
               <span className={styles.value}>{employee.department}</span>
             </div>
-
+ 
             <div className={styles.detailItem}>
               <span className={styles.label}>Salary</span>
               <span className={styles.value}>{employee.salary} LPA</span>
             </div>
-
+ 
             <div className={styles.detailItem}>
               <span className={styles.label}>Experience</span>
               <span className={styles.value}>{employee.experience}</span>
             </div>
-
+ 
             <div className={styles.detailItem}>
               <span className={styles.label}>Joining Date</span>
               <span className={styles.value}>{employee.joiningDate}</span>
@@ -159,12 +191,12 @@ function EmployeesDetails() {
         </div>
       </div>
    
-      <Addmodal
+      {/* <Addmodal
         show={showModal}
         onClose={() => {
           setShowModal(false);
           setLoading(true);
-
+ 
           (async () => {
             const companyId = localStorage.getItem("userId");
             const res = await getCompanyById(companyId);
@@ -176,7 +208,14 @@ function EmployeesDetails() {
           })();
         }}
         editData={employee}
-      />
+      /> */}
+      <Addmodal
+  show={showModal}
+  onClose={() => setShowModal(false)}
+  editData={employee}
+  onSubmit={handleEmployeeUpdate}  
+/>
+ 
      <ConfirmAlert
   isOpen={open}
   title="Are you sure?"
@@ -189,13 +228,9 @@ function EmployeesDetails() {
   }}
   onCancel={() => setOpen(false)}
 />
-
+ 
     </>
   );
 }
-
+ 
 export default EmployeesDetails;
-
-
-
-

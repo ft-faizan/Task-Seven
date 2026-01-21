@@ -56,8 +56,8 @@ const avatarLetter = Username
               </button>
               <ConfirmAlert
                 isOpen={open}
-                title="Are you sure?"
-                message="Do you want to logout."
+                title="Are you sure? Do you want to logout ."
+                message=" If yes mind it Your trash will be automatically deleted."
                 confirmText="Logout"
                 cancelText="Cancel"
                 onConfirm={handalonLogout}

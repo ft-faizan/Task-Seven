@@ -1,3 +1,6 @@
+
+ 
+ 
 import styles from "../Styles/ProjectDetails.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -33,7 +36,7 @@ function ProjectDetails() {
     }
     fetchProject();
   }, [id]);
-
+ 
   const handleDelete = async () => {
     try {
       const companyId = localStorage.getItem("userId");
@@ -41,7 +44,6 @@ function ProjectDetails() {
       const res = await getCompanyById(companyId);
       const updatedProjects = res.data.projects.filter(
         (p) => p.id !== project.id,
-       
       );
       await updateCompanyById(companyId, {
         ...res.data,
@@ -52,11 +54,11 @@ function ProjectDetails() {
       console.error("Delete failed", err);
     }
   };
-
+ 
   const handleMembersUpdate = (members) => {
     setProject((prev) => ({ ...prev, teamMembers: members }));
   };
-
+ 
   const handleRemoveMember = async (memberId) => {
     const updatedMembers = project.teamMembers.filter((m) => m.id !== memberId);
     const companyId = localStorage.getItem("userId");
@@ -70,13 +72,39 @@ function ProjectDetails() {
     });
     setProject((prev) => ({ ...prev, teamMembers: updatedMembers }));
   };
-
+ 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!project) return <div className={styles.notFound}>Project not found</div>;
-
+ 
   // Get first letter for project avatar
   const projectAvatar = project.name?.charAt(0).toUpperCase() || "P";
-
+ 
+ 
+const handleProjectUpdate = async (formData) => {
+  try {
+    const companyId = localStorage.getItem("userId");
+    const res = await getCompanyById(companyId);
+ 
+    const updatedProjects = res.data.projects.map((p) =>
+      String(p.id) === id ? { ...p, ...formData } : p
+    );
+ 
+    await updateCompanyById(companyId, {
+      ...res.data,
+      projects: updatedProjects,
+    });
+ 
+    const updatedProject = updatedProjects.find(
+      (p) => String(p.id) === id
+    );
+ 
+    setProject(updatedProject); // ✅ update UI
+    setShowModal(false);        // ✅ close modal
+  } catch (err) {
+    console.error("Update failed", err);
+  }
+};
+ 
   return (
     <>
       <div className={styles.proDetails}>
@@ -121,7 +149,7 @@ function ProjectDetails() {
                   </button>
                 </div>
               </div>
-
+ 
               <div className={styles.detailsGrid}>
                 <div className={styles.detailCard}>
                   <span className={styles.detailLabel}>Progress</span>
@@ -137,35 +165,35 @@ function ProjectDetails() {
                     </span>
                   </div>
                 </div>
-
+ 
                 <div className={styles.detailCard}>
                   <span className={styles.detailLabel}>Start Date</span>
                   <span className={styles.detailValue}>
                     {project.startDate || "Not set"}
                   </span>
                 </div>
-
+ 
                 <div className={styles.detailCard}>
                   <span className={styles.detailLabel}>End Date</span>
                   <span className={styles.detailValue}>
                     {project.endDate || "Not set"}
                   </span>
                 </div>
-
+ 
                 <div className={styles.detailCard}>
                   <span className={styles.detailLabel}>Budget</span>
                   <span className={styles.detailValue}>
                     ₹{project.budget || "0"}
                   </span>
                 </div>
-
+ 
                 {project.risks && (
                   <div className={`${styles.detailCard} ${styles.fullWidth}`}>
                     <span className={styles.detailLabel}>Risks</span>
                     <span className={styles.detailValue}>{project.risks}</span>
                   </div>
                 )}
-
+ 
                 {project.description && (
                   <div className={`${styles.detailCard} ${styles.fullWidth}`}>
                     <span className={styles.detailLabel}>Description</span>
@@ -176,7 +204,7 @@ function ProjectDetails() {
                 )}
               </div>
             </div>
-
+ 
             <div className={styles.right}>
               <div className={styles.teamHeader}>
                 <h3 className={styles.teamTitle}>Team Members</h3>
@@ -184,14 +212,14 @@ function ProjectDetails() {
                   {project.teamMembers?.length || 0}
                 </span>
               </div>
-
+ 
               <button
                 className={styles.addMemberBtn}
                 onClick={() => setShowMemberModal(true)}
               >
                 <span>+ Add Members</span>
               </button>
-
+ 
               <div className={styles.membersList}>
                 {!project.teamMembers || project.teamMembers.length === 0 ? (
                   <p className={styles.emptyText}>No team members yet</p>
@@ -233,8 +261,8 @@ function ProjectDetails() {
           </div>
         </div>
       </div>
-
-      <AddProjectModal
+ 
+      {/* <AddProjectModal
         show={showModal}
         onClose={() => {
           setShowModal(false);
@@ -251,8 +279,14 @@ function ProjectDetails() {
           })();
         }}
         editData={project}
-      />
-
+      /> */}
+       <AddProjectModal
+  show={showModal}
+  onClose={() => setShowModal(false)}
+  editData={project}
+  onSubmit={handleProjectUpdate}
+/>
+ 
       <AddProjectMembersModal
         show={showMemberModal}
         onClose={() => setShowMemberModal(false)}
@@ -274,5 +308,7 @@ function ProjectDetails() {
     </>
   );
 }
-
+ 
 export default ProjectDetails;
+ 
+ 

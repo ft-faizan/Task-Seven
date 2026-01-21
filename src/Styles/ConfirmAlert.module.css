@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
-.backdrop {
+.backdrops {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(50, 48, 48, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@
 }
 
 .modal {
-  background:#0B142D;
+  background:#3b82f6;
   width: 340px;
   padding: 22px;
   border-radius: 10px;
@@ -33,7 +33,7 @@
 .title {
   font-size: 20px;
   margin-bottom: 6px;
-  color: #1571E7;
+  color: #BED1F7;
 }
 
 .message {

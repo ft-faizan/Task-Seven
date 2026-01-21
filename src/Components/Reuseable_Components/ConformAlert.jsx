@@ -33,7 +33,7 @@ function ConfirmAlert({
   if (!isOpen) return null;
 
   return createPortal(
-    <div className={styles.backdrop} onClick={handleBackdropClick}>
+    <div className={styles.backdrops} onClick={handleBackdropClick}>
       <div ref={modalRef} className={styles.modal}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.message}>{message}</p>

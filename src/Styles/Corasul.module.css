@@ -6,8 +6,8 @@
     height: auto;
     min-height: 98vh;
     max-width: 100%;
-    /* background-color: #e8e8e8; */
-    background-color: #131B2E;
+    background-color: #e8e8e8;
+    /* background-color: #131B2E; */
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -60,14 +60,15 @@
   height: 100%;
   object-fit: contain;
   display: block;
-  background-color: #131B2E;
+  /* background-color: #131B2E; */
 }
  
 
 .carouselTitle {
   font-size: 28px;
   font-weight: bold;
- color: #FFFFFF;
+ /* color: #FFFFFF; */
+ color: #0371EA;
   margin-bottom: 12px;
   line-height: 1.3;
   padding: 0 20px;
@@ -76,7 +77,8 @@
 
 .carouselSubtitle {
   font-size: 16px;
-  color: #ffffff63;
+  /* color: #ffffff63; */
+  color: #5D616B;
   margin-bottom: 30px;
   line-height: 1.5;
   padding: 0 20px;

@@ -1,7 +1,9 @@
-import { useReducer, useEffect, useState } from "react";
-import { getCompanyById, updateCompanyById } from "../../Api/Api_Methods.jsx";
-import ShowToast from "../Reuseable_Components/ShowToast.jsx";
 
+
+import { useReducer, useEffect, useState } from "react";
+// import { getCompanyById, updateCompanyById } from "../../Api/Api_Methods.jsx";
+import ShowToast from "../Reuseable_Components/ShowToast.jsx";
+ 
 const styles = {
   modalOverlay: {
     position: "fixed",
@@ -10,6 +12,7 @@ const styles = {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.8)",
+    // backgroundColor:"white",
     backdropFilter: "blur(8px)",
     WebkitBackdropFilter: "blur(8px)",
     display: "flex",
@@ -22,7 +25,8 @@ const styles = {
     width: "100vw",
   },
   modalContent: {
-    background: "rgba(15, 23, 42, 0.95)",
+    // background: "rgba(15, 23, 42, 0.95)",
+    backgroundColor:"white",
     backdropFilter: "blur(20px)",
     WebkitBackdropFilter: "blur(20px)",
     borderRadius: "16px",
@@ -38,7 +42,7 @@ const styles = {
     scrollbarWidth: "none",
     msOverflowStyle: "none",
   },
-
+ 
   title: {
     color: "#3b82f6",
     fontSize: "24px",
@@ -66,20 +70,20 @@ const styles = {
     gap: "8px",
   },
   label: {
-    color: "rgba(255, 255, 255, 0.7)",
+    color: "#5D616B",
     fontSize: "13px",
     fontWeight: "600",
     textTransform: "uppercase",
     letterSpacing: "0.5px",
   },
   put: {
-    backgroundColor: "rgba(15, 23, 42, 0.6)",
+    // backgroundColor: "rgba(15, 23, 42, 0.6)",
     border: "1px solid rgba(255, 255, 255, 0.1)",
     borderRadius: "10px",
     // padding: "12px 16px",
     // padding: "12px 5px 12px 5px",
     padding: "10px",
-    color: "#ffffff",
+    color: "#000000ff",
     fontSize: "14px",
     outline: "none",
     transition: "all 0.3s ease",
@@ -87,11 +91,11 @@ const styles = {
     paddingRight: "0px",
   },
   textarea: {
-    backgroundColor: "rgba(15, 23, 42, 0.6)",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
+    // backgroundColor: "rgba(15, 23, 42, 0.6)",
+    border: "1px solid rgba(0, 0, 0, 0.1)",
     borderRadius: "10px",
     padding: "12px 16px",
-    color: "#ffffff",
+    color: "#000000ff",
     fontSize: "14px",
     outline: "none",
     transition: "all 0.3s ease",
@@ -100,11 +104,11 @@ const styles = {
     fontFamily: "'Montserrat', sans-serif",
   },
   select: {
-    backgroundColor: "rgba(15, 23, 42, 0.6)",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    border: "1px solid rgba(0, 0, 0, 0.1)",
     borderRadius: "10px",
     padding: "12px 16px",
-    color: "#ffffff",
+    color: "#000000ff",
     fontSize: "14px",
     outline: "none",
     cursor: "pointer",
@@ -135,8 +139,8 @@ const styles = {
   },
   cancelButton: {
     backgroundColor: "transparent",
-    color: "rgba(255, 255, 255, 0.7)",
-    border: "1px solid rgba(255, 255, 255, 0.2)",
+    color: "rgba(0, 0, 0, 0.7)",
+    border: "1px solid rgba(0, 0, 0, 0.2)",
     borderRadius: "10px",
     padding: "12px 32px",
     fontSize: "14px",
@@ -148,10 +152,10 @@ const styles = {
     fontFamily: "'Montserrat', sans-serif",
   },
 };
-
+ 
 const mediaStyles = `
   @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800");
-  
+ 
   @media (max-width: 768px) {
     .modal-content-responsive {
       padding: 24px !important;
@@ -171,7 +175,7 @@ const mediaStyles = `
       width: 100% !important;
     }
   }
-
+ 
   @media (max-width: 480px) {
     .modal-content-responsive {
       padding: 20px !important;
@@ -183,7 +187,7 @@ const mediaStyles = `
     }
   }
 `;
-
+ 
 const emptyData = {
   name: "",
   description: "",
@@ -194,94 +198,137 @@ const emptyData = {
   progress: "",
   risks: "",
 };
-
+ 
 function reducer(state, action) {
   return { ...state, [action.type]: action.val };
 }
-
-function AddProjectModal({ show, onClose, editData }) {
+ 
+function AddProjectModal({ show, onClose, editData, onSubmit  }) {
   const [data, dispatch] = useReducer(reducer, emptyData);
-
+ 
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
+ 
+//   useEffect(() => {
+//     if (editData) {
+//       Object.keys(emptyData).forEach((key) => {
+//         if (key in editData) {
+//           dispatch({ type: key, val: editData[key] });
+//         }
+//       });
+//     }
+//   }, [editData]);
 
-  useEffect(() => {
-    if (editData) {
-      Object.keys(emptyData).forEach((key) => {
-        if (key in editData) {
-          dispatch({ type: key, val: editData[key] });
-        }
-      });
-    }
-  }, [editData]);
+//   useEffect(() => {
+//   if (!show) {
+//     Object.keys(emptyData).forEach((key) => {
+//       dispatch({ type: key, val: "" });
+//     });
+//   }
+// }, [show]);
 
-  const handleSubmit = async () => {
-    if (!data.name || !data.status) {
-      setSnackbar({
-        open: true,
-        message: "Project name and status are required",
-        severity: "error",
-      });
-      return;
-    }
-
-    try {
-      const companyId = localStorage.getItem("userId");
-      const res = await getCompanyById(companyId);
-      const company = res.data;
-
-      let updatedProjects;
-
-      if (editData) {
-        updatedProjects = company.projects.map((p) =>
-          p.id === editData.id ? { ...p, ...data } : p,
-        );
-      } else {
-        const newProject = {
-          id: Date.now(),
-          ...data,
-          budget: Number(data.budget || 0),
-          progress: Number(data.progress || 0),
-          teamMembers: [],
-          createdAt: new Date().toISOString(),
-        };
-
-        updatedProjects = [...(company.projects || []), newProject];
+useEffect(() => {
+  if (show && editData) {
+    // ✏️ EDIT MODE → fill data
+    Object.keys(emptyData).forEach((key) => {
+      if (key in editData) {
+        dispatch({ type: key, val: editData[key] ?? "" });
       }
+    });
+  }
 
-      await updateCompanyById(companyId, {
-        ...company,
-        projects: updatedProjects,
-      });
-      setSnackbar({
-        open: true,
-        message: editData
-          ? "Project updated successfully"
-          : "Project added successfully",
-        severity: "success",
-      });
+  if (show && !editData) {
+    // ➕ ADD MODE → reset form
+    Object.keys(emptyData).forEach((key) => {
+      dispatch({ type: key, val: "" });
+    });
+  }
+}, [show, editData]);
 
-      // onClose();
 
-      setTimeout(() => {
-        onClose();
-        window.location.reload();
-      }, 800);
-    } catch (err) {
-      console.error("Project save failed", err);
-       setSnackbar({
-    open: true,
-    message: "Failed to save project",
-    severity: "error",
-  });
-    }
-  };
-
+ 
+  // const handleSubmit = async () => {
+  //   if (!data.name || !data.status) {
+  //     setSnackbar({
+  //       open: true,
+  //       message: "Project name and status are required",
+  //       severity: "error",
+  //     });
+  //     return;
+  //   }
+ 
+  //   try {
+  //     const companyId = localStorage.getItem("userId");
+  //     const res = await getCompanyById(companyId);
+  //     const company = res.data;
+ 
+  //     let updatedProjects;
+ 
+  //     if (editData) {
+  //       updatedProjects = company.projects.map((p) =>
+  //         p.id === editData.id ? { ...p, ...data } : p,
+  //       );
+  //     } else {
+  //       const newProject = {
+  //         id: Date.now(),
+  //         ...data,
+  //         budget: Number(data.budget || 0),
+  //         progress: Number(data.progress || 0),
+  //         teamMembers: [],
+  //         createdAt: new Date().toISOString(),
+  //       };
+ 
+  //       updatedProjects = [...(company.projects || []), newProject];
+  //     }
+ 
+  //     await updateCompanyById(companyId, {
+  //       ...company,
+  //       projects: updatedProjects,
+  //     });
+  //     setSnackbar({
+  //       open: true,
+  //       message: editData
+  //         ? "Project updated successfully"
+  //         : "Project added successfully",
+  //       severity: "success",
+  //     });
+ 
+  //     // onClose();
+ 
+  //     setTimeout(() => {
+  //       onClose();
+  //       window.location.reload();
+  //     }, 800);
+  //   } catch (err) {
+  //     console.error("Project save failed", err);
+  //      setSnackbar({
+  //   open: true,
+  //   message: "Failed to save project",
+  //   severity: "error",
+  // });
+  //   }
+  // };
+   
+  
+  const handleSubmit = () => {
+  if (!data.name || !data.status) {
+    setSnackbar({
+      open: true,
+      message: "Project name and status are required",
+      severity: "error",
+    });
+    return;
+  }
+ 
+  onSubmit(data); // 🔥 ONLY THIS
+};
+ 
+ 
   if (!show) return null;
-
+ 
   return (
     <>
       <style>{mediaStyles}</style>
@@ -294,7 +341,7 @@ function AddProjectModal({ show, onClose, editData }) {
           <h3 className="title-responsive" style={styles.title}>
             {editData ? "Edit Project" : "Add New Project"}
           </h3>
-
+ 
           <div className="form-grid-responsive" style={styles.formGrid}>
             <div style={styles.formGroup}>
               <label style={styles.label}>Project Name</label>
@@ -307,18 +354,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroup}>
               <label style={styles.label}>Status</label>
               <select
@@ -329,14 +376,14 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               >
                 <option value="">Select status</option>
@@ -346,7 +393,7 @@ function AddProjectModal({ show, onClose, editData }) {
                 <option value="on-hold">On Hold</option>
               </select>
             </div>
-
+ 
             <div style={styles.formGroupFull}>
               <label style={styles.label}>Description</label>
               <textarea
@@ -358,18 +405,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroup}>
               <label style={styles.label}>Start Date</label>
               <input
@@ -381,18 +428,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroup}>
               <label style={styles.label}>End Date</label>
               <input
@@ -404,18 +451,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroup}>
               <label style={styles.label}>Budget</label>
               <input
@@ -428,18 +475,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroup}>
               <label style={styles.label}>Progress (%)</label>
               <input
@@ -454,18 +501,18 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
-
+ 
             <div style={styles.formGroupFull}>
               <label style={styles.label}>Risks</label>
               <textarea
@@ -477,32 +524,33 @@ function AddProjectModal({ show, onClose, editData }) {
                 }
                 onFocus={(e) => {
                   e.target.style.borderColor = "rgba(59, 130, 246, 0.5)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.8)";
                   e.target.style.boxShadow =
                     "0 0 0 3px rgba(59, 130, 246, 0.1)";
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                  e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
-                  e.target.style.boxShadow = "none";
+                  // e.target.style.backgroundColor = "rgba(15, 23, 42, 0.6)";
+                  // e.target.style.boxShadow = "none";
                 }}
               />
             </div>
           </div>
-
+ 
           <div className="button-group-responsive" style={styles.buttonGroup}>
             <button
               className="button-responsive"
               style={styles.cancelButton}
+              // onClick={onClose}
               onClick={onClose}
-              onMouseEnter={(e) => {
-                e.target.style.borderColor = "rgba(255, 255, 255, 0.4)";
-                e.target.style.color = "#ffffff";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.borderColor = "rgba(255, 255, 255, 0.2)";
-                e.target.style.color = "rgba(255, 255, 255, 0.7)";
-              }}
+              // onMouseEnter={(e) => {
+                // e.target.style.borderColor = "rgba(255, 255, 255, 0.4)";
+                // e.target.style.color = "#ffffff";
+              // }}
+              // onMouseLeave={(e) => {
+                // e.target.style.borderColor = "rgba(255, 255, 255, 0.2)";
+                // e.target.style.color = "rgba(255, 255, 255, 0.7)";
+              // }}
             >
               CANCEL
             </button>
@@ -535,5 +583,5 @@ function AddProjectModal({ show, onClose, editData }) {
     </>
   );
 }
-
+ 
 export default AddProjectModal;

@@ -4,8 +4,11 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(4px);
+  /* background: rgba(0, 0, 0, 0.45); */
+ background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+      /* backdrop-filter: blur(4px); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +19,8 @@
 
 .modal {
  width: 50%;
-    background: #0B142D;
+    /* background: #0B142D; */
+    background-color: white;
     border-radius: 14px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     animation: _modalFade_1y5ss_1 0.25s ease-out;
@@ -146,11 +150,11 @@
 
 .field input,
 .field select {
-  background: #0f1a3a;
+  /* background: #0f1a3a; */
   border: 1px solid #1f2a55;
   border-radius: 8px;
   padding: 10px 12px;
-  color: #fff;
+  color: #000000;
   font-size: 14px;
   outline: none;
 }

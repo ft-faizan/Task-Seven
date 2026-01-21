@@ -4,7 +4,8 @@
   width: 100%;
   display: flex;
   border-radius: 15px;
-  background-color: #0a0f1a;
+  /* background-color: #0a0f1a; */
+  background-color: #F5F4F6;
   /* overflow: hidden; */
 }
 .aside {

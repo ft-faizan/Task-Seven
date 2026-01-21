@@ -7,7 +7,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
- background: rgba(15, 23, 42, 0.6);
+ /* background: rgba(15, 23, 42, 0.6); */
+ background-color: rgb(15 23 42 / 15%);
             backdrop-filter: blur(40px) saturate(180%);
             /* border-right: 1px solid rgba(16, 185, 129, 0.1); */
   font-family: "Montserrat", sans-serif;
@@ -27,7 +28,8 @@
     
         font-size: 27px;
         font-weight: 500;
-        color: #D3DDEB;
+        /* color: #D3DDEB; */
+        color: #5D616B;
  
   }
 } 
@@ -57,7 +59,8 @@
     .profilebtn {
   background-color: transparent;
   border: none;
-  color: white;
+  /* color: white; */
+  color: #5D616B;
   padding: 0;
   font-size: 14px;
   border-radius: 5px;
@@ -71,7 +74,7 @@
 }
 
 .profilebtn:hover {
-  color: #a6c1d6;
+  color: #3785F3;
    /* font-size: 15px; */
   
   transform: translateY(-5px);
@@ -97,8 +100,8 @@ display: flex;
     align-items: center;
     gap: 30px;
     padding: 5px 15px 5px 15px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(16, 185, 129, 0.1);
+    background: rgb(255 255 255 / 62%);
+    border: 1px solid #0371EA;
     border-radius: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -161,7 +164,7 @@ display: flex;
             display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: baseline;
+    align-items: center;
     gap: 5px;
         }
 
