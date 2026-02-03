@@ -73,7 +73,7 @@ function Addmodal({ show, onClose, editData, onSubmit }) {
  
         <div className={styles.body}>
           <div className={styles.formGrid}>
-            {Object.keys(emptyData).map((key) => (
+            {/* {Object.keys(emptyData).map((key) => (
               <div key={key} className={styles.field}>
                 <label>{key}</label>
                 <input
@@ -84,7 +84,36 @@ function Addmodal({ show, onClose, editData, onSubmit }) {
                   }
                 />
               </div>
-            ))}
+            ))} */}
+            {Object.keys(emptyData).map((key) => (
+  <div key={key} className={styles.field}>
+    <label>{key}</label>
+
+    {/* STATUS DROPDOWN */}
+    {key === "status" ? (
+      <select
+        value={data[key]}
+        onChange={(e) =>
+          dispatch({ type: key, val: e.target.value })
+        }
+      >
+        <option value="">Select Status</option>
+        <option value="active">active</option>
+        <option value="inactive">inactive</option>
+      </select>
+    ) : (
+      /* NORMAL INPUT */
+      <input
+        type={key === "joiningDate" ? "date" : "text"}
+        value={data[key]}
+        onChange={(e) =>
+          dispatch({ type: key, val: e.target.value })
+        }
+      />
+    )}
+  </div>
+))}
+
           </div>
         </div>
  
